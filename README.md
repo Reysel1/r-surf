@@ -1,4 +1,4 @@
-preview: https://streamable.com/9sdog1
+preview: https://streamable.com/x7w568
 
 add to qb-core/client/function.lua 
 
