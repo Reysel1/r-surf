@@ -4,7 +4,8 @@ local Translations = {
      },
      help = {
         ["text"] = "~t~G~w~ - Hablar con reysel",
-        ["dont"] = "Ya has alquilado una tabla."
+        ["dont"] = "Ya has alquilado una tabla.",
+        ["save"] = "~t~G~w~ - Guardar tabla"
      },
      menu = {
         ["tile"] = "Alquiler",
@@ -13,7 +14,8 @@ local Translations = {
         ["close"] = "Cerrar"
      },
      noti = {
-        ["info"] = "Has alquilado una tabla de surf."
+        ["info"] = "Has alquilado una tabla de surf.",
+        ["savet"] = "Guardaste la tabla. Ahora puedes alquilar otra."
      }
 }
 
