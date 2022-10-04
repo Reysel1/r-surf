@@ -4,7 +4,8 @@ local Translations = {
      },
      help = {
         ["text"] = "~t~G~w~ - Talking to reysel",
-        ["dont"] = "You have already rented a board"
+        ["dont"] = "You have already rented a board",
+        ["save"] = "~t~G~w~ - Save tabla"
      },
      menu = {
         ["tile"] = "Rent",
@@ -13,7 +14,8 @@ local Translations = {
         ["close"] = "Close"
      },
      noti = {
-        ["info"] = "You have rented a surfboard."
+        ["info"] = "You have rented a surfboard.",
+        ["savet"] = "You saved the table. Now you can rent another."
      }
 }
 
