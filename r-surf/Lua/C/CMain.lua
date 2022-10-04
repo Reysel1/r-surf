@@ -1,3 +1,4 @@
+local BlipZonaS = false
 local __all = false
 CreateThread(function()
     while true do
@@ -10,21 +11,25 @@ CreateThread(function()
                    if __all == true then 
                         QBCore.Help(Lang:t("help.dont"), v)
                         else 
-                            DrawMarker(2, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.2, 0.2, 0, 0, 0, 350, 0, 0, 0, 12, 0, 0, 0)
+                            DrawMarker(2, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.2, 0.2, 255, 255, 255, 350, 0, 0, 0, 12, 0, 0, 0)
                             QBCore.Help(Lang:t("help.text"), v)
                             if IsControlJustReleased(0, 58) then
-                            QBCore.Functions.Progressbar('r-shop', Lang:t("prog.spk"), 5000, false, true, { 
-                                disableMovement = true,
-                                disableCarMovement = true,
-                                disableMouse = false,
-                                disableCombat = true,
-                            }, {
-                                animDict = '',
-                                anim = '',
-                                flags = 16,
-                            }, {}, {}, function() 
+                           --QBCore.Functions.Progressbar('r-shop', Lang:t("prog.spk"), 5000, false, true, { 
+                                --disableMovement = true,
+                                --disableCarMovement = true,
+                               -- disableMouse = false,
+                                --disableCombat = true,
+                            --}, 
+                            --{
+                                --animDict = '',
+                               -- anim = '',
+                                --flags = 16,
+                            --}, 
+                            --{}, 
+                            --{}, 
+                            --function() 
                                 openMenu()
-                            end)
+                            --end)
                          end
                     end
                 end
@@ -42,7 +47,7 @@ CreateThread(function(veh)
             if #(ppos - a) < 10 then
                 if __all == true then 
                     QBCore.Help(Lang:t("help.save"), a)
-                    DrawMarker(1, a.x, a.y, a.z, 0, 0, 0, 0, 0, 0, 3.5, 3.2, 0.1, 0, 0, 0, 200, 0, 0, 0, 0)
+                    DrawMarker(2, a.x, a.y, a.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.2, 0.2, 255, 255, 255, 350, 0, 0, 0, 12, 0, 0, 0)
                     if IsControlJustReleased(0, 58) then 
                         DeleteVehicle(GetVehiclePedIsIn(player))
                         __all = false
@@ -88,6 +93,8 @@ RegisterNetEvent('spawn', function(data)
    for k, vh in pairs(CFG.SPAWN) do
         QBCore.Functions.SpawnVehicle(CFG.VH, function(veh)   
             TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+            MuestraZonaSurf()
+            exports['lj-fuel']:SetFuel(veh, 100.0) --cambia si utilizas 'LegacyFuel', 'lj-fuel', etc
             TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
      end, vh, true)
     QBCore.Functions.Notify(Lang:t("noti.info"))
@@ -105,3 +112,15 @@ CreateThread(function()
         EndTextCommandSetBlipName(blip)
     end
 end)
+
+--agrega un blips automatico a los players que arriendan la tabla de surf para orientarse donde guardarla
+function MuestraZonaSurf()
+    local Mblip = AddBlipForCoord(-1298.36, -1799.9, -0.25) 
+    SetBlipSprite(Mblip, 404)
+    SetBlipAsShortRange(blip, true)
+    SetBlipScale(Mblip, 0.9)
+    SetBlipColour(Mblip, 0)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Devolver Tabla")
+    EndTextCommandSetBlipName(Mblip)
+end
