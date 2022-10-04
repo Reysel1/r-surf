@@ -1,5 +1,4 @@
 local __all = false
-
 CreateThread(function()
     while true do
         local _s = 1000
@@ -14,26 +13,47 @@ CreateThread(function()
                             DrawMarker(2, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.2, 0.2, 0, 0, 0, 350, 0, 0, 0, 12, 0, 0, 0)
                             QBCore.Help(Lang:t("help.text"), v)
                             if IsControlJustReleased(0, 58) then
-                                QBCore.Functions.Progressbar('r-shop', Lang:t("prog.spk"), 5000, false, true, { 
-                                    disableMovement = true,
-                                    disableCarMovement = true,
-                                    disableMouse = false,
-                                    disableCombat = true,
-                                }, {
-                                    animDict = '',
-                                    anim = '',
-                                    flags = 16,
-                                }, {}, {}, function() 
-                                    openMenu()
-                                end)
-                        end
+                            QBCore.Functions.Progressbar('r-shop', Lang:t("prog.spk"), 5000, false, true, { 
+                                disableMovement = true,
+                                disableCarMovement = true,
+                                disableMouse = false,
+                                disableCombat = true,
+                            }, {
+                                animDict = '',
+                                anim = '',
+                                flags = 16,
+                            }, {}, {}, function() 
+                                openMenu()
+                            end)
+                         end
                     end
                 end
             end
         Wait(_s)
     end
 end)
-
+CreateThread(function(veh)
+    while true do
+        local _s = 1000
+        local player = PlayerPedId()
+        local ppos = GetEntityCoords(player)
+        for k, a in pairs(CFG.RET) do
+            _s = 1
+            if #(ppos - a) < 10 then
+                if __all == true then 
+                    QBCore.Help(Lang:t("help.save"), a)
+                    DrawMarker(1, a.x, a.y, a.z, 0, 0, 0, 0, 0, 0, 3.5, 3.2, 0.1, 0, 0, 0, 200, 0, 0, 0, 0)
+                    if IsControlJustReleased(0, 58) then 
+                        DeleteVehicle(GetVehiclePedIsIn(player))
+                        __all = false
+                        QBCore.Functions.Notify(Lang:t("noti.savet"))
+                    end
+                end
+            end
+        end
+        Wait(_s)
+    end
+end)
 function openMenu()
     exports['qb-menu']:openMenu({
         {
@@ -59,6 +79,10 @@ function openMenu()
     })
 end
 
+-- RegisterCommand('s', function()
+--     TriggerEvent('spawn')
+-- end)
+
 RegisterNetEvent('spawn', function(data)
     __all = true
    for k, vh in pairs(CFG.SPAWN) do
@@ -69,7 +93,6 @@ RegisterNetEvent('spawn', function(data)
     QBCore.Functions.Notify(Lang:t("noti.info"))
     end
 end)
-
 CreateThread(function()
     for k, v in pairs(CFG.SPK) do
         local blip = AddBlipForCoord(v.x, v.y, v.z)
