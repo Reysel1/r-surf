@@ -88,7 +88,7 @@ RegisterNetEvent('spawn', function(data)
    for k, vh in pairs(CFG.SPAWN) do
         QBCore.Functions.SpawnVehicle(CFG.VH, function(veh)   
             TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
-            export[CFG.FUEL]SetFuel(veh, 100)
+            export[CFG.FUEL]:SetFuel(veh, 100)
             TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
      end, vh, true)
     QBCore.Functions.Notify(Lang:t("noti.info"))
